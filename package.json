@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "studio": "npx prisma studio",
-    "db:update": "concurrently \"npx prisma generate\" \"npx prisma db push\"",
+    "db:update": "npx concurrently \"npx prisma generate\" \"npx prisma db push\"",
     "add:component": "npx shadcn-ui@latest add"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "autoprefixer": "^10.0.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",

@@ -2,7 +2,7 @@ import { db } from '@/shared/lib/db';
 import { currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-import { CompanionFormSchemaValues } from '@/shared/api/companion-api';
+import { CompanionFormSchemaValues } from '@/entities/companion/api/companion-api';
 
 export async function PATCH(req: Request, { params }: { params: { companionId: string } }) {
   try {

@@ -18,8 +18,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/shared/shadcn-ui/ui/textarea';
 import { PREAMBLE, SEED_CHAT } from '@/shared/consts/ai-seed-and-preabmle';
 import { Button } from '@/shared/shadcn-ui/ui/button';
-import { CompanionFormSchema, CompanionFormSchemaValues, companionAPI } from '@/shared/api/companion-api';
 import { useToast } from '@/shared/shadcn-ui/ui/use-toast';
+import { CompanionFormSchema, CompanionFormSchemaValues, companionAPI } from '@/entities/companion';
 
 interface CompanionFormProps {
   initialData: Companion | null;
