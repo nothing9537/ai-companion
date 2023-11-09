@@ -1,10 +1,10 @@
 import { FC, memo } from 'react';
 
-interface <FTName | capitalcase>Props {
+interface <FTName | pascalcase>Props {
   
 }
 
-export const [FTName | capitalcase]: FC<[FTName | capitalcase]Props> = memo(() => {
+export const [FTName | pascalcase]: FC<[FTName | pascalcase]Props> = memo(() => {
   return (
     <div className="">
 

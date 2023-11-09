@@ -1,1 +1,1 @@
-export { [FTName | capitalcase] } from './ui/[FTName]';
+export { [FTName | pascalcase] } from './ui/[FTName]';

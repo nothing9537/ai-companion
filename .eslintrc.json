@@ -15,7 +15,9 @@
     "import/prefer-default-export": "off",
     "linebreak-style": "off",
     "no-restricted-exports": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "max-len": ["error", { "ignoreComments": true, "code": 200 }],
+    "object-curly-newline": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.json"
