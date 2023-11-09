@@ -16,8 +16,15 @@
     "linebreak-style": "off",
     "no-restricted-exports": "off",
     "import/no-extraneous-dependencies": "off",
-    "max-len": ["error", { "ignoreComments": true, "code": 200 }],
-    "object-curly-newline": "off"
+    "max-len": [
+      "error",
+      {
+        "ignoreComments": true,
+        "code": 200
+      }
+    ],
+    "object-curly-newline": "off",
+    "react/prop-types": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.json"

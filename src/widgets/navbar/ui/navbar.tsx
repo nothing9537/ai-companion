@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, memo } from 'react';
-import { Menu, Sparkles } from 'lucide-react';
+import { FC, ReactElement, memo } from 'react';
+import { Sparkles } from 'lucide-react';
 import { Poppins } from 'next/font/google';
 import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
@@ -9,18 +9,19 @@ import Link from 'next/link';
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import { ThemeSwitcher } from '@/features/theme-switcher';
+import { OpenMobileSidebar } from '@/features/open-mobile-sidebar';
 
 const font = Poppins({ weight: '600', subsets: ['latin'] });
 
 interface NavbarProps {
-
+  sheetContent: ReactElement;
 }
 
-export const Navbar: FC<NavbarProps> = memo(() => {
+export const Navbar: FC<NavbarProps> = memo(({ sheetContent }) => {
   return (
-    <nav className="fixed w-full z-50 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary">
+    <nav className="fixed w-full z-50 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary h-16">
       <div className="flex items-center">
-        <Menu className="block md:hidden" />
+        <OpenMobileSidebar sidebar={sheetContent} />
         <Link href="/">
           <h1
             className={cn(
