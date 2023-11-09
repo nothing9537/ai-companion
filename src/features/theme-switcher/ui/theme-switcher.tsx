@@ -1,9 +1,9 @@
 import { FC, memo, useCallback } from 'react';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/shared/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/shared/shadcn-ui/ui/dropdown-menu';
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/shadcn-ui/ui/button';
 
 export const ThemeSwitcher: FC = memo(() => {
   const { setTheme } = useTheme();

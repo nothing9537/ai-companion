@@ -1,8 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
+import { SearchInput } from '@/features/search-input';
 
-const RootPage = () => {
+const RootPage: FC = () => {
   return (
-    <div>RootPage</div>
+    <div className="h-full p-4 space-y-2">
+      <SearchInput />
+    </div>
   );
 };
 

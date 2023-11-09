@@ -7,7 +7,7 @@ import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
 import { cn } from '@/shared/lib/utils';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/shadcn-ui/ui/button';
 import { ThemeSwitcher } from '@/features/theme-switcher';
 import { OpenMobileSidebar } from '@/features/open-mobile-sidebar';
 

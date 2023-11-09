@@ -1,5 +1,7 @@
+'use client';
+
 import { FC, ReactElement, memo } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from '@/shared/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/shared/shadcn-ui/ui/sheet';
 import { Menu } from 'lucide-react';
 
 interface OpenMobileSidebarProps {

@@ -4,6 +4,7 @@
     "consts",
     "lucide",
     "nextjs",
+    "shadcn",
     "zustand"
   ]
 }

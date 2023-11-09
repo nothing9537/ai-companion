@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from 'next/font/google';
 
+import { cn } from '@/shared/lib/utils';
 import { ThemeProvider } from './providers/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -18,7 +19,12 @@ export default function RootLayout({ children }: {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body
+          className={cn(
+            'bg-secondary',
+            inter.className,
+          )}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
