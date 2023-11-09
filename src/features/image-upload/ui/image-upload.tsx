@@ -21,21 +21,25 @@ export const ImageUpload: FC<ImageUploadProps> = ({ value, onChange, disabled })
     return null;
   }
 
-  console.log(isMounted);
+  // ! Bad type in next-cloudinary, CldUploadWidgetResults don't exists necessary fields
+  const onUpload = (result: any) => {
+    onChange(result.info.secure_url as string);
+  };
 
   return (
     <div className="space-y-4 w-full flex flex-col justify-center">
-      <CldUploadButton options={{ maxFiles: 1 }} uploadPreset="gb7sg2da" />
-      <div className="p-4 border-4 border-dashed border-primary/10 rounded-lg hover:opacity-75 transition flex flex-col space-y-2 items-center justify-center">
-        <div className="relative h-40 w-40">
-          <Image
-            fill
-            alt="Upload"
-            src="/image-placeholder.svg"
-            className="rounded-lg object-cover"
-          />
+      <CldUploadButton options={{ maxFiles: 1 }} uploadPreset="gb7sg2da" onUpload={onUpload} className="flex items-center justify-center">
+        <div className="p-4 border-4 border-dashed border-primary/10 rounded-lg hover:opacity-75 transition flex flex-col space-y-2 items-center justify-center">
+          <div className="relative h-40 w-40">
+            <Image
+              fill
+              alt="Upload"
+              src={value || '/image-placeholder.svg'}
+              className="rounded-lg object-cover"
+            />
+          </div>
         </div>
-      </div>
+      </CldUploadButton>
     </div>
   );
 };

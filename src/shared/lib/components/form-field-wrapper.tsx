@@ -3,20 +3,23 @@
 import React, { ReactElement, createContext, useCallback } from 'react';
 import { ControllerFieldState, ControllerRenderProps, FieldValues, Path, UseFormReturn, UseFormStateReturn } from 'react-hook-form';
 
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../shadcn-ui/ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '../../shadcn-ui/ui/form';
 import { cn } from '../utils';
 
 interface FormFieldWrapperProps<T extends FieldValues> {
   form: UseFormReturn<T>;
   name: Path<T>;
   children: (props: FormFieldContextProps<T>) => ReactElement;
-  label?: {
-    className?: string;
-    value: string;
-  };
+  label?: string;
   withError?: boolean;
   customControl?: boolean;
-  formItemClassName?: string;
+  formFieldDescription?: string;
+  classNames?: {
+    formItem?: string;
+    formMessage?: string;
+    formLabel?: string;
+    formDescription?: string;
+  }
 }
 
 export interface FormFieldContextProps<T extends FieldValues> {
@@ -28,21 +31,19 @@ export interface FormFieldContextProps<T extends FieldValues> {
 const FormFieldContext = createContext({});
 
 export const FormFieldWrapper = <T extends FieldValues>(props: FormFieldWrapperProps<T>): JSX.Element => {
-  const { form, name, children, label, withError = true, customControl = false, formItemClassName } = props;
-
-  if (label) {
-    label.className = 'uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70';
-  }
+  const { form, name, children, label, withError = true, customControl = false, formFieldDescription, classNames } = props;
 
   const renderFormField = useCallback(() => (
     <FormField
       control={form.control}
       name={name}
       render={(renderProps: FormFieldContextProps<T>) => (
-        <FormItem className={cn('w-full', formItemClassName)}>
-          <FormLabel className={label?.className}>
-            {label?.value}
-          </FormLabel>
+        <FormItem className={cn('w-full', classNames?.formItem)}>
+          {label && (
+            <FormLabel className={classNames?.formLabel}>
+              {label}
+            </FormLabel>
+          )}
           {customControl ? (
             children?.(renderProps)
           ) : (
@@ -50,11 +51,16 @@ export const FormFieldWrapper = <T extends FieldValues>(props: FormFieldWrapperP
               {children?.(renderProps)}
             </FormControl>
           )}
-          {withError && <FormMessage />}
+          {withError && <FormMessage className={cn('text-rose-600', classNames?.formMessage)} />}
+          {formFieldDescription && (
+            <FormDescription className={classNames?.formDescription}>
+              {formFieldDescription}
+            </FormDescription>
+          )}
         </FormItem>
       )}
     />
-  ), [children, customControl, form.control, formItemClassName, label?.className, label?.value, name, withError]);
+  ), [children, customControl, form.control, formFieldDescription, label, name, withError, classNames]);
 
   return (
     <FormFieldContext.Consumer>
