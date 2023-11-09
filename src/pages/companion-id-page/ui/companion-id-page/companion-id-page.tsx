@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { db } from '@/shared/lib/db';
-import { CompanionForm } from '@/widgets/companion-form';
+import { CompanionForm } from '@/features/companion-form';
 
 interface CompanionIdPageProps {
   params: {
@@ -19,12 +19,10 @@ const CompanionIdPage: FC<CompanionIdPageProps> = async ({ params }) => {
   const categories = await db.category.findMany();
 
   return (
-    <div>
-      <CompanionForm
-        categories={categories}
-        initialData={companion}
-      />
-    </div>
+    <CompanionForm
+      categories={categories}
+      initialData={companion}
+    />
   );
 };
 

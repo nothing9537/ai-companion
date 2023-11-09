@@ -1,11 +1,12 @@
 'use client';
 
-import { FC, memo } from 'react';
+import { FC, memo, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Category, Companion } from '@prisma/client';
 import { Wand2 } from 'lucide-react';
-import * as z from 'zod';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/shared/lib/utils';
 import { Form, FormControl } from '@/shared/shadcn-ui/ui/form';
@@ -17,6 +18,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/shared/shadcn-ui/ui/textarea';
 import { PREAMBLE, SEED_CHAT } from '@/shared/consts/ai-seed-and-preabmle';
 import { Button } from '@/shared/shadcn-ui/ui/button';
+import { CompanionFormSchema, CompanionFormSchemaValues, companionAPI } from '@/shared/api/companion-api';
+import { useToast } from '@/shared/shadcn-ui/ui/use-toast';
 
 interface CompanionFormProps {
   initialData: Companion | null;
@@ -24,20 +27,12 @@ interface CompanionFormProps {
   className?: string;
 }
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  description: z.string().min(1, { message: 'Description is required' }),
-  instructions: z.string().min(200, { message: 'Instructions require at least 200 characters' }),
-  seed: z.string().min(200, { message: 'Seed require at least 200 characters' }),
-  imageUrl: z.string().min(1, { message: 'Image is required' }),
-  categoryId: z.string().min(1, { message: 'Category is required' }),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
-
 export const CompanionForm: FC<CompanionFormProps> = memo(({ categories, initialData, className }) => {
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const form = useForm<CompanionFormSchemaValues>({
+    resolver: zodResolver(CompanionFormSchema),
     mode: 'all',
     defaultValues: initialData || {
       name: '',
@@ -51,9 +46,35 @@ export const CompanionForm: FC<CompanionFormProps> = memo(({ categories, initial
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: FormSchema) => {
-    console.log(values);
-  };
+  useEffect(() => {
+    if (initialData) {
+      form.reset(initialData);
+    }
+  }, [form, initialData]);
+
+  const onSubmit = useCallback(async (values: CompanionFormSchemaValues) => {
+    if (initialData) {
+      const response = await companionAPI.updateCompanion(initialData.id, values);
+
+      if (response instanceof AxiosError) {
+        toast({ variant: 'destructive', description: `Something went wrong, when updating ${initialData.name} Companion` });
+      } else {
+        router.refresh();
+        router.push('/');
+        toast({ description: `Successfully edited ${initialData.name} Companion!` });
+      }
+    } else {
+      const response = await companionAPI.createCompanion(values);
+
+      if (response instanceof AxiosError) {
+        toast({ variant: 'destructive', description: 'Something when creating new Companion' });
+      } else {
+        router.refresh();
+        router.push('/');
+        toast({ description: `Successfully created ${response.name} Companion!` });
+      }
+    }
+  }, [initialData, router, toast]);
 
   return (
     <section className={cn('h-full p-4 space-y-2 max-w-3xl mx-auto', className)}>

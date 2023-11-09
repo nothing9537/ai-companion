@@ -3,6 +3,7 @@
     "cloudinary",
     "clsx",
     "consts",
+    "dtos",
     "hookform",
     "lucide",
     "nextjs",

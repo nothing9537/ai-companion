@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from 'next/font/google';
 
 import { cn } from '@/shared/lib/utils';
+import { Toaster } from '@/shared/shadcn-ui/ui/toaster';
 import { ThemeProvider } from './providers/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: {
             enableSystem
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
