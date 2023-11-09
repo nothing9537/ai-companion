@@ -76,16 +76,15 @@ export const CompanionForm: FC<CompanionFormProps> = memo(({ categories, initial
             </div>
             <Separator className="bg-primary/10" />
           </div>
-          {/* <FormFieldWrapper form={form} name="name" formItemClassName="flex flex-col items-center justify-center space-y-4">
+          <FormFieldWrapper form={form} name="name" formItemClassName="flex flex-col items-center justify-center space-y-4">
             {({ field }) => (
-              
+              <ImageUpload
+                value={field.value}
+                onChange={field.onChange}
+                disabled={isLoading}
+              />
             )}
-          </FormFieldWrapper> */}
-          <ImageUpload
-            // value={field.value}
-            // onChange={field.onChange}
-            // disabled={isLoading}
-          />
+          </FormFieldWrapper>
         </form>
       </Form>
     </section>
