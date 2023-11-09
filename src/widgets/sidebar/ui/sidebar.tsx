@@ -15,7 +15,7 @@ export const Sidebar: FC<SidebarProps> = memo(() => {
   const pathname = usePathname();
 
   return (
-    <div className="space-y-4 flex flex-col h-full text-primary bg-secondary">
+    <section className="space-y-4 flex flex-col h-full text-primary bg-secondary">
       <div className="p-3 flex-1 justify-center flex">
         <div className="space-y-2 flex flex-col gap-y-1">
           {SideBarItems.map((item) => (
@@ -35,6 +35,6 @@ export const Sidebar: FC<SidebarProps> = memo(() => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 });
