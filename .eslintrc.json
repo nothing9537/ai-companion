@@ -19,6 +19,9 @@
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "no-underscore-dangle": "off",
+    "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/keyword-spacing": "off",
+    "class-methods-use-this": "off",
     // "max-len": [
     //   "error",
     //   {
@@ -73,6 +76,16 @@
       ],
       "rules": {
         "no-console": "off"
+      }
+    },
+    {
+      "files": [
+        "**/src/shared/lib/**/*.ts",
+        "**/src/shared/lib/*.ts"
+      ],
+      "rules": {
+        "no-restricted-syntax": "off",
+        "no-await-in-loop": "off"
       }
     }
   ]

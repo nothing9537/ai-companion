@@ -24,14 +24,14 @@ export const ChatMessages: FC<ChatMessagesProps> = memo(({ companion, isLoading,
     };
   }, []);
 
-  const renderMessage = useCallback(({ content, role, imageUrl }: AppMessage) => (
+  const renderMessage = useCallback(({ content, role }: AppMessage) => (
     <MessageCard
       key={content}
       role={role}
       content={content}
-      imageUrl={imageUrl}
+      imageUrl={companion.imageUrl}
     />
-  ), []);
+  ), [companion.imageUrl]);
 
   return (
     <div className="flex-1 overflow-y-auto pr-4">
@@ -46,7 +46,7 @@ export const ChatMessages: FC<ChatMessagesProps> = memo(({ companion, isLoading,
         <MessageCard
           role={Role.system}
           imageUrl={companion.imageUrl}
-          isLoading
+          isLoading={isLoading}
         />
       )}
     </div>
