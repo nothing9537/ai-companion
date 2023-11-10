@@ -28,14 +28,39 @@
     // ],
     "max-len": "off",
     "object-curly-newline": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "unknown",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ]
+      }
+    ]
   },
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "overrides": [
     {
-      "files": ["**/src/entities/**/api/*.ts"],
+      "files": [
+        "**/src/entities/**/api/*.ts"
+      ],
       "rules": {
         "consistent-return": "off",
         "class-methods-use-this": "off",
@@ -43,7 +68,9 @@
       }
     },
     {
-      "files": ["**/src/app/api/**/*.ts"],
+      "files": [
+        "**/src/app/api/**/*.ts"
+      ],
       "rules": {
         "no-console": "off"
       }

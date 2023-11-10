@@ -1,3 +1,1 @@
-import { ChatLayout } from '@/pages/chat-page';
-
-export default ChatLayout;
+export { ChatLayout as default } from '@/pages/chat-page';

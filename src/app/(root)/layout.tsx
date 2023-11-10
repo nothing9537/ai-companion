@@ -1,3 +1,1 @@
-import { RootLayout } from '@/pages/root-page';
-
-export default RootLayout;
+export { RootLayout as default } from '@/pages/root-page';

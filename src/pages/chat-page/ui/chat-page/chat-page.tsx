@@ -1,8 +1,9 @@
-import { db } from '@/shared/lib/db';
-import { Chat } from '@/widgets/chat';
+import { FC } from 'react';
 import { auth, redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import { FC } from 'react';
+
+import { CompanionChat } from '@/widgets/companion-chat';
+import { db } from '@/shared/lib/db';
 
 interface ChatIdPageProps {
   params: {
@@ -44,9 +45,7 @@ const ChatIdPage: FC<ChatIdPageProps> = async ({ params }) => {
   }
 
   return (
-    <div>
-      <Chat companion={companion} />
-    </div>
+    <CompanionChat companion={companion} />
   );
 };
 

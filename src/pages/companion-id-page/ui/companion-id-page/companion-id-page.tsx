@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { auth, redirectToSignIn } from '@clerk/nextjs';
 
-import { db } from '@/shared/lib/db';
 import { CompanionForm } from '@/features/companion-form';
+import { db } from '@/shared/lib/db';
 
 interface CompanionIdPageProps {
   params: {
@@ -10,9 +11,16 @@ interface CompanionIdPageProps {
 }
 
 const CompanionIdPage: FC<CompanionIdPageProps> = async ({ params }) => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return redirectToSignIn();
+  }
+
   const companion = await db.companion.findUnique({
     where: {
       id: params.companionId,
+      userId,
     },
   });
 

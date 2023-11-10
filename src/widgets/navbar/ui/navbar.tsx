@@ -23,12 +23,7 @@ export const Navbar: FC<NavbarProps> = memo(({ sheetContent }) => {
       <div className="flex items-center">
         <OpenMobileSidebar sidebar={sheetContent} />
         <Link href="/">
-          <h1
-            className={cn(
-              'hidden md:block text-xl md:text-3xl font-bold text-primary',
-              font.className,
-            )}
-          >
+          <h1 className={cn('hidden md:block text-xl md:text-3xl font-bold text-primary', font.className)}>
             AI.Companion
           </h1>
         </Link>
@@ -39,7 +34,7 @@ export const Navbar: FC<NavbarProps> = memo(({ sheetContent }) => {
           <Sparkles className="h-4 w-4 fill-white text-white ml-2" />
         </Button>
         <ThemeSwitcher />
-        <UserButton />
+        <UserButton afterSignOutUrl="/" />
       </div>
     </nav>
   );

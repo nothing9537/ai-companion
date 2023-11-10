@@ -28,6 +28,7 @@ export async function PATCH(req: Request, { params }: { params: { companionId: s
     const companion = await db.companion.update({
       where: {
         id: companionId,
+        userId: user.id,
       },
       data: {
         userId: user.id,

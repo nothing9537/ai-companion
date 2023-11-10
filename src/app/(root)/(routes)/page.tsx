@@ -1,3 +1,1 @@
-import { RootPage } from '@/pages/root-page';
-
-export default RootPage;
+export { RootPage as default } from '@/pages/root-page';
