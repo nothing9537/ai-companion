@@ -50,7 +50,7 @@ export async function POST(
     }
 
     const name = companion.id;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
     const companion_file_name = `${name}.txt`;
 
     const companionKey = {
@@ -133,6 +133,7 @@ export async function POST(
     console.log('MEMORY MANAGER writeToHistory BEFORE', new Date().toLocaleString());
     await memoryManager.writeToHistory(`${response.trim()}`, companionKey);
     console.log('MEMORY MANAGER writeToHistory AFTER', new Date().toLocaleString());
+    // eslint-disable-next-line global-require
     const { Readable } = require('stream');
 
     const s = new Readable();

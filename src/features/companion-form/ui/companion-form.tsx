@@ -96,7 +96,6 @@ export const CompanionForm: FC<CompanionFormProps> = memo(({ categories, initial
               <ImageUpload
                 value={field.value}
                 onChange={field.onChange}
-                disabled={isLoading}
               />
             )}
           </FormFieldWrapper>
