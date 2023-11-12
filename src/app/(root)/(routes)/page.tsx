@@ -1,1 +1,1 @@
-export { RootPage as default } from '@/pagesLayer/root-page';
+export { RootPage as default } from '@/pages-layer/root-page';

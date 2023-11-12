@@ -1,1 +1,1 @@
-export { ChatPage as default } from '@/pagesLayer/chat-page';
+export { ChatPage as default } from '@/pages-layer/chat-page';

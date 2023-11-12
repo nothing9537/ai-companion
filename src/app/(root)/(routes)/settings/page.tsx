@@ -1,1 +1,1 @@
-export { SettingsPage as default } from '@/pagesLayer/settings-page';
+export { SettingsPage as default } from '@/pages-layer/settings-page';
