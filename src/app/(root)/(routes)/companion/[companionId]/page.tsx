@@ -1,1 +1,1 @@
-export { CompanionIdPage as default } from '@/pages/companion-id-page';
+export { CompanionIdPage as default } from '@/pagesLayer/companion-id-page';
