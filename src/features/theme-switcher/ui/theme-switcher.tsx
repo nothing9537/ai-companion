@@ -1,7 +1,7 @@
 import { FC, memo, useCallback } from 'react';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/shared/shadcn-ui/ui/dropdown-menu';
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/shared/shadcn-ui/ui/dropdown-menu';
 
 import { Button } from '@/shared/shadcn-ui/ui/button';
 

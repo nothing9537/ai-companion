@@ -1,8 +1,8 @@
 'use client';
 
 import { FC, memo, useCallback } from 'react';
-import { CompanionWithMessagesCount } from '@/entities/companion/model/types/companions';
 import Image from 'next/image';
+import { CompanionWithMessagesCount } from '@/entities/companion/model/types/companions';
 
 import { CompanionCard } from '../companion-card/companion-card';
 

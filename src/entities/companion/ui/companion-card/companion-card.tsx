@@ -5,8 +5,8 @@ import { Companion } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Card, CardFooter, CardHeader } from '@/shared/shadcn-ui/ui/card';
 import { MessagesSquare } from 'lucide-react';
+import { Card, CardFooter, CardHeader } from '@/shared/shadcn-ui/ui/card';
 
 interface CompanionCardProps {
   companion: Companion;

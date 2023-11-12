@@ -1,14 +1,8 @@
 import { FC, ReactNode } from 'react';
-import { Metadata } from 'next';
 
 import { Navbar } from '@/widgets/navbar';
 import { Sidebar } from '@/widgets/sidebar';
 import { checkSubscription } from '@/shared/lib/subscription';
-
-export const metadata: Metadata = {
-  title: 'AI Companion / Home',
-  description: 'Select and talk to AI companions',
-};
 
 interface LayoutProps {
   children: ReactNode;
