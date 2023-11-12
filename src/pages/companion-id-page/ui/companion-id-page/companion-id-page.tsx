@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { auth, redirectToSignIn } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 import { CompanionForm } from '@/features/companion-form';
+import { checkSubscription } from '@/shared/lib/subscription';
 import { db } from '@/shared/lib/db';
 
 interface CompanionIdPageProps {
@@ -12,6 +14,7 @@ interface CompanionIdPageProps {
 
 const CompanionIdPage: FC<CompanionIdPageProps> = async ({ params }) => {
   const { userId } = auth();
+  const isPro = await checkSubscription();
 
   if (!userId) {
     return redirectToSignIn();
@@ -25,6 +28,10 @@ const CompanionIdPage: FC<CompanionIdPageProps> = async ({ params }) => {
   });
 
   const categories = await db.category.findMany();
+
+  if (!isPro) {
+    return redirect('/');
+  }
 
   return (
     <CompanionForm

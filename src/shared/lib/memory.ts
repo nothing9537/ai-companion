@@ -1,7 +1,7 @@
 import { Redis } from '@upstash/redis';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
-import { PineconeClient } from '@pinecone-database/pinecone';
 import { PineconeStore } from 'langchain/vectorstores/pinecone';
+import { PineconeClient } from '@pinecone-database/pinecone';
 
 export type CompanionKey = {
   companionName: string;
@@ -35,19 +35,25 @@ export class MemoryManager {
     const pineconeClient = <PineconeClient>this.vectorDBClient;
 
     const pineconeIndex = pineconeClient.Index(
-      process.env.PINECONE_INDEX! || '',
+      process.env.PINECONE_INDEX!,
     );
 
+    console.log('PINECONE SEARCH BEFORE', new Date().toLocaleString());
     const vectorStore = await PineconeStore.fromExistingIndex(
-      new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_API_KEY }),
+      new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_API_KEY, maxConcurrency: 5, maxRetries: 5 }),
       { pineconeIndex },
     );
+    console.log(vectorStore);
+    console.log('PINECONE SEARCH AFTER', new Date().toLocaleString());
 
+    console.log('VECTOR STORE SIMILAR DOCS BEFORE', new Date().toLocaleString());
     const similarDocs = await vectorStore
       .similaritySearch(recentChatHistory, 3, { fileName: companionFileName })
       .catch((err) => {
         console.log('WARNING: failed to get vector search results.', err);
       });
+    console.log(similarDocs);
+    console.log('VECTOR STORE SIMILAR DOCS AFTER', new Date().toLocaleString());
     return similarDocs;
   }
 

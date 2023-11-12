@@ -10,12 +10,13 @@
     "lint:fix": "next lint --fix",
     "studio": "npx prisma studio",
     "db:update": "npx concurrently \"npx prisma generate\" \"npx prisma db push\"",
-    "add:component": "npx shadcn-ui@latest add"
+    "add:component": "npx shadcn-ui@latest add",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
     "@hookform/resolvers": "^3.3.2",
-    "@pinecone-database/pinecone": "^0.1.6",
+    "@pinecone-database/pinecone": "^1.1.2",
     "@prisma/client": "^5.5.2",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, FormEvent, memo, useEffect, useRef } from 'react';
+import { FC, FormEvent, memo } from 'react';
 
 import { Role } from '@prisma/client';
 import { useCompletion } from 'ai/react';
@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 import { ChatForm } from '@/features/chat-form';
 import { AppMessage } from '@/entities/message';
-import { CompanionWithMessagesAndMessagesCount } from '@/shared/types/companions';
+import { CompanionWithMessagesAndMessagesCount } from '@/entities/companion/model/types/companions';
 
 import { useCompanionMessages } from '../../model/use-messages';
 import { ChatMessages } from '../companion-chat-messages/companion-chat-messages';
@@ -19,10 +19,8 @@ interface ChatProps {
 }
 
 export const CompanionChat: FC<ChatProps> = memo(({ companion }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   const router = useRouter();
-  const { messages, setMessages, addNewMessages } = useCompanionMessages();
+  const { messages, addNewMessages } = useCompanionMessages();
 
   const onFinish = (prompt: string, completion: string) => {
     const systemMessage: AppMessage = {
@@ -54,12 +52,6 @@ export const CompanionChat: FC<ChatProps> = memo(({ companion }) => {
     handleSubmit(e);
   };
 
-  useEffect(() => {
-    if (scrollRef) {
-      scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages.length]);
-
   return (
     <div className="flex flex-col h-full p-4 space-y-2">
       <ChatHeader companion={companion} />
@@ -74,7 +66,6 @@ export const CompanionChat: FC<ChatProps> = memo(({ companion }) => {
         handleInputChange={handleInputChange}
         isLoading={isLoading}
       />
-      <div ref={scrollRef} />
     </div>
   );
 });

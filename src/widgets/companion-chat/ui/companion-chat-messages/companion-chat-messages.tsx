@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, memo, useCallback, useEffect, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Companion, Role } from '@prisma/client';
 
 import { AppMessage, MessageCard } from '@/entities/message';
@@ -13,6 +13,7 @@ interface ChatMessagesProps {
 
 export const ChatMessages: FC<ChatMessagesProps> = memo(({ companion, isLoading, messages }) => {
   const [fakeLoading, setFakeLoading] = useState(!messages.length);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -23,6 +24,12 @@ export const ChatMessages: FC<ChatMessagesProps> = memo(({ companion, isLoading,
       clearTimeout(timeout);
     };
   }, []);
+
+  useEffect(() => {
+    if (scrollRef) {
+      scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages.length]);
 
   const renderMessage = useCallback(({ content, role }: AppMessage) => (
     <MessageCard
@@ -49,6 +56,7 @@ export const ChatMessages: FC<ChatMessagesProps> = memo(({ companion, isLoading,
           isLoading={isLoading}
         />
       )}
+      <div ref={scrollRef} />
     </div>
   );
 });

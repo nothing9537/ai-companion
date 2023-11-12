@@ -1,8 +1,9 @@
-import { db } from '@/shared/lib/db';
 import { auth, currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
+import { db } from '@/shared/lib/db';
 import { CompanionFormSchemaValues } from '@/entities/companion';
+import { checkSubscription } from '@/shared/lib/subscription';
 
 export async function PATCH(req: Request, { params }: { params: { companionId: string } }) {
   try {
@@ -10,6 +11,7 @@ export async function PATCH(req: Request, { params }: { params: { companionId: s
     const body = await req.json() as CompanionFormSchemaValues;
     const user = await currentUser();
     const { name, description, instructions, seed, categoryId, imageUrl } = body;
+    const isPro = await checkSubscription();
 
     if (!companionId) {
       return new NextResponse("Mandatory parameter 'companionId' missed", { status: 400 });
@@ -23,7 +25,9 @@ export async function PATCH(req: Request, { params }: { params: { companionId: s
       return new NextResponse('Mandatory data missed', { status: 400 });
     }
 
-    // TODO Check for subscription
+    if (!isPro) {
+      return new NextResponse('Unsubscribed', { status: 403 });
+    }
 
     const companion = await db.companion.update({
       where: {

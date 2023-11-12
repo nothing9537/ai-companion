@@ -7,7 +7,7 @@ import { useUser } from '@clerk/nextjs';
 import { AxiosError } from 'axios';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/shadcn-ui/ui/dropdown-menu';
-import { CompanionWithMessagesAndMessagesCount } from '@/shared/types/companions';
+import { CompanionWithMessagesAndMessagesCount } from '@/entities/companion/model/types/companions';
 import { Button } from '@/shared/shadcn-ui/ui/button';
 import { BotAvatar } from '@/shared/ui/bot-avatar';
 import { useToast } from '@/shared/shadcn-ui/ui/use-toast';

@@ -50,6 +50,7 @@ export async function POST(
     }
 
     const name = companion.id;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const companion_file_name = `${name}.txt`;
 
     const companionKey = {
@@ -57,32 +58,39 @@ export async function POST(
       userId: user.id,
       modelName: 'llama2-13b',
     };
+
+    console.log('GET MEMORY MANAGER INSTANCE BEFORE', new Date().toLocaleString());
     const memoryManager = await MemoryManager.getInstance();
+    console.log('GET MEMORY MANAGER INSTANCE AFTER', new Date().toLocaleString());
 
+    console.log('GET MEMORY MANAGER READ LATEST HISTORY BEFORE', new Date().toLocaleString());
     const records = await memoryManager.readLatestHistory(companionKey);
+    console.log('GET MEMORY MANAGER READ LATEST HISTORY AFTER', new Date().toLocaleString());
     if (records.length === 0) {
+      console.log('MEMORY MANAGER seedChatHistory BEFORE', new Date().toLocaleString());
       await memoryManager.seedChatHistory(companion.seed, '\n\n', companionKey);
+      console.log('MEMORY MANAGER seedChatHistory AFTER', new Date().toLocaleString());
     }
+    console.log('MEMORY MANAGER writeToHistory BEFORE', new Date().toLocaleString());
     await memoryManager.writeToHistory(`User: ${prompt}\n`, companionKey);
-
-    // Query Pinecone
-
+    console.log('MEMORY MANAGER recentChatHistory BEFORE', new Date().toLocaleString());
     const recentChatHistory = await memoryManager.readLatestHistory(companionKey);
+    console.log('MEMORY MANAGER recentChatHistory AFTER', new Date().toLocaleString());
 
-    // Right now the preamble is included in the similarity search, but that
-    // shouldn't be an issue
+    console.log('MEMORY MANAGER vectorSearch BEFORE', new Date().toLocaleString());
+    // const similarDocs = await memoryManager.vectorSearch(
+    //   recentChatHistory,
+    //   companion_file_name,
+    // );
+    console.log('MEMORY MANAGER vectorSearch AFTER', new Date().toLocaleString());
 
-    const similarDocs = await memoryManager.vectorSearch(
-      recentChatHistory,
-      companion_file_name,
-    );
-
-    let relevantHistory = '';
-    if (!!similarDocs && similarDocs.length !== 0) {
-      relevantHistory = similarDocs.map((doc) => doc.pageContent).join('\n');
-    }
+    const relevantHistory = '';
+    // if (!!similarDocs && similarDocs.length !== 0) {
+    //   relevantHistory = similarDocs.map((doc) => doc.pageContent).join('\n');
+    // }
     const { handlers } = LangChainStream();
     // Call Replicate for inference
+    console.log('CREATE MODEL BEFORE', new Date().toLocaleString());
     const model = new Replicate({
       model:
         'a16z-infra/llama-2-13b-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5',
@@ -91,11 +99,15 @@ export async function POST(
       },
       apiKey: process.env.REPLICATE_API_TOKEN,
       callbackManager: CallbackManager.fromHandlers(handlers),
+      maxConcurrency: 5,
+      maxRetries: 5,
     });
+    console.log('CREATE MODEL AFTER', new Date().toLocaleString());
 
     // Turn verbose on for debugging
     model.verbose = true;
 
+    console.log('MODEL RESP BEFORE', new Date().toLocaleString());
     const resp = String(
       await model
         .call(
@@ -112,19 +124,24 @@ export async function POST(
         )
         .catch(console.error),
     );
+    console.log('MODEL RESP AFTER', new Date().toLocaleString());
 
     const cleaned = resp.replaceAll(',', '');
     const chunks = cleaned.split('\n');
     const response = chunks[0];
 
+    console.log('MEMORY MANAGER writeToHistory BEFORE', new Date().toLocaleString());
     await memoryManager.writeToHistory(`${response.trim()}`, companionKey);
-    var Readable = require("stream").Readable;
+    console.log('MEMORY MANAGER writeToHistory AFTER', new Date().toLocaleString());
+    const { Readable } = require('stream');
 
     const s = new Readable();
     s.push(response);
     s.push(null);
     if (response !== undefined && response.length > 1) {
+      console.log('MEMORY MANAGER RESPONSE writeToHistory BEFORE', new Date().toLocaleString());
       await memoryManager.writeToHistory(`${response.trim()}`, companionKey);
+      console.log('MEMORY MANAGER RESPONSE writeToHistory AFTER', new Date().toLocaleString());
 
       await db.companion.update({
         where: {

@@ -6,7 +6,7 @@ import { stripe } from '@/shared/lib/stripe';
 
 const settingsUrl = absoluteUrl('/settings');
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const { userId } = auth();
     const user = await currentUser();
@@ -45,7 +45,7 @@ export async function GET(req: Request) {
               name: 'Companion PRO',
               description: 'Create custom AI Companions',
             },
-            unit_amount: 999,
+            unit_amount: 499,
             recurring: {
               interval: 'month',
             },
