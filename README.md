@@ -28,6 +28,8 @@ It also supports adaptability out of the box, thanks to TailwindCSS and shadcn-u
 Also, the user can search for companions by category and description/name.
 
 This is the basic functionality, let's look at each section in more detail
+
+Sometimes companions may take a long time to respond, or not respond at all. You should either choose another companion, wait, or retry your request
 ----
 
 ## Architecture
