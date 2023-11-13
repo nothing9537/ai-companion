@@ -20,7 +20,7 @@ interface ChatProps {
 
 export const CompanionChat: FC<ChatProps> = memo(({ companion }) => {
   const router = useRouter();
-  const { messages, addNewMessages } = useCompanionMessages();
+  const { messages, addNewMessages, setMessages } = useCompanionMessages();
 
   const onFinish = (prompt: string, completion: string) => {
     const systemMessage: AppMessage = {
@@ -54,7 +54,7 @@ export const CompanionChat: FC<ChatProps> = memo(({ companion }) => {
 
   return (
     <div className="flex flex-col h-full p-4 space-y-2">
-      <ChatHeader companion={companion} />
+      <ChatHeader setMessages={setMessages} companion={companion} />
       <ChatMessages
         companion={companion}
         isLoading={isLoading}

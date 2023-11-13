@@ -12,17 +12,22 @@ import { Button } from '@/shared/shadcn-ui/ui/button';
 import { BotAvatar } from '@/shared/ui/bot-avatar';
 import { useToast } from '@/shared/shadcn-ui/ui/use-toast';
 import { companionAPI } from '@/entities/companion';
+import { AppMessage } from '@/entities/message';
 
 interface ChatHeaderProps {
   companion: CompanionWithMessagesAndMessagesCount;
+  setMessages: (messages: AppMessage[]) => void;
 }
 
-export const ChatHeader: FC<ChatHeaderProps> = memo(({ companion }) => {
+export const ChatHeader: FC<ChatHeaderProps> = memo(({ companion, setMessages }) => {
   const router = useRouter();
   const { user } = useUser();
   const { toast } = useToast();
 
-  const onBack = useCallback(() => router.back(), [router]);
+  const onBack = useCallback(() => {
+    setMessages([]);
+    router.back();
+  }, [router, setMessages]);
   const onEdit = useCallback(() => router.push(`/companion/${companion.id}`), [companion.id, router]);
   const onDelete = useCallback(async () => {
     const response = await companionAPI.deleteCompanion(companion.id);
