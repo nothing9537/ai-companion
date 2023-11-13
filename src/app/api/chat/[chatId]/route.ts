@@ -99,8 +99,6 @@ export async function POST(
       },
       apiKey: process.env.REPLICATE_API_TOKEN,
       callbackManager: CallbackManager.fromHandlers(handlers),
-      maxConcurrency: 5,
-      maxRetries: 5,
     });
     console.log('CREATE MODEL AFTER', new Date().toLocaleString());
 

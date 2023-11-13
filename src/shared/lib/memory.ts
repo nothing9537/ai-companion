@@ -40,7 +40,7 @@ export class MemoryManager {
 
     console.log('PINECONE SEARCH BEFORE', new Date().toLocaleString());
     const vectorStore = await PineconeStore.fromExistingIndex(
-      new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_API_KEY, maxConcurrency: 5, maxRetries: 5 }),
+      new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_API_KEY }),
       { pineconeIndex },
     );
     console.log(vectorStore);
