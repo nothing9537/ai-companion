@@ -22,13 +22,6 @@
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/keyword-spacing": "off",
     "class-methods-use-this": "off",
-    // "max-len": [
-    //   "error",
-    //   {
-    //     "ignoreComments": true,
-    //     "code": 200
-    //   }
-    // ],
     "max-len": "off",
     "object-curly-newline": "off",
     "react/prop-types": "off",
