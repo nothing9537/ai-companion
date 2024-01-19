@@ -11,6 +11,8 @@ import { db } from '@/shared/lib/db';
 
 // dotenv.config({ path: '.env' });
 
+export const maxDuration = 120;
+
 export async function POST(
   request: Request,
   { params }: { params: { chatId: string } },
