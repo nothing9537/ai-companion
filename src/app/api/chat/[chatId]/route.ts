@@ -78,16 +78,16 @@ export async function POST(
     console.log('MEMORY MANAGER recentChatHistory AFTER', new Date().toLocaleString());
 
     console.log('MEMORY MANAGER vectorSearch BEFORE', new Date().toLocaleString());
-    // const similarDocs = await memoryManager.vectorSearch(
-    //   recentChatHistory,
-    //   companion_file_name,
-    // );
+    const similarDocs = await memoryManager.vectorSearch(
+      recentChatHistory,
+      companion_file_name,
+    );
     console.log('MEMORY MANAGER vectorSearch AFTER', new Date().toLocaleString());
 
-    const relevantHistory = '';
-    // if (!!similarDocs && similarDocs.length !== 0) {
-    //   relevantHistory = similarDocs.map((doc) => doc.pageContent).join('\n');
-    // }
+    let relevantHistory = '';
+    if (!!similarDocs && similarDocs.length !== 0) {
+      relevantHistory = similarDocs.map((doc) => doc.pageContent).join('\n');
+    }
     const { handlers } = LangChainStream();
     // Call Replicate for inference
     console.log('CREATE MODEL BEFORE', new Date().toLocaleString());
